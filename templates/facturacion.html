@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>Facturaciòn</title>
+   <h3> Gracias por su compra</h3>
+</head>
+
+<body>
+
+<div class="container">
+
+
+<fieldset > <legend> Tiempo necesario para completar una transaccion</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cliente</th>
+            <th>Tiempo transaccion</th>
+            <th>Estado Transaccion</th>
+            <th>Fecha</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in contacts %}
+          <tr>
+
+            <td>{{contact.cliente}}</td>
+            <td>{{contact.tiempo_req}}</td>
+            <td>{{contact.trasac_complet}}</td>
+             <td>{{contact.fecha}}</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+         </fieldset>
+    </div>
+
+<div class="container">
+
+
+<fieldset > <legend> Número de transacciones completadas en un tiempo dado de {{prom}} segundos</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cliente</th>
+            <th>Tiempo transaccion</th>
+            <th>Estado Transaccion</th>
+            <th>Fecha</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in contacts3 %}
+          <tr>
+
+            <td>{{contact.cliente}}</td>
+            <td>{{contact.tiempo_req}}</td>
+            <td>{{contact.trasac_complet}}</td>
+             <td>{{contact.fecha}}</td>
+
+          </tr>
+          {% endfor %}
+        <tr>
+        <td> <td> NÃºmero de transacciones completadas en un tiempo dado {{numero}}</td> </td>
+        </tr>
+        <tr>
+
+        </tr>
+        </tbody>
+      </table>
+         </fieldset>
+
+
+    <fieldset > <legend> Tiempo que necesita el usuario para trasladarse de una página web a otra</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cliente</th>
+            <th>Tiempo transaccion</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in timePage %}
+          <tr>
+
+            <td>{{contact.cliente}}</td>
+            <td>{{contact.tiempo_req}}</td>
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+         </fieldset>
+    <fieldset > <legend> Numero de transacciones diarias abandonadas (no completadas) por usuarios finales</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cantidad</th>
+            <th>Fecha</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in conFecha %}
+          <tr>
+            <td>{{contact['COUNT(fecha)']}}</td>
+            <td>{{contact.fecha}}</td>
+
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+         </fieldset>
+
+<fieldset > <legend> Nùmero de sesiones de trabajo diarias abandonadas sin ninguna transaccion realizada</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cantidad</th>
+            <th>Fecha</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in sesion_aban %}
+          <tr>
+            <td>{{contact['COUNT(fecha)']}}</td>
+            <td>{{contact.fecha}}</td>
+
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+         </fieldset>
+
+
+
+
+
+
+
+    <fieldset > <legend> Numero  de veces que el usario solicita ayuda</legend>
+
+      <table class="table">
+        <thead class="thead-dark" >
+          <tr>
+
+            <th>Cliente</th>
+            <th>Numero de ayudas</th>
+            <th>Fecha</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for df in dfchat %}
+          <tr>
+            <td>{{df.cliente}}</td>
+            <td>{{df.veces_ayuda}}</td>
+            <td>{{df.fecha}}</td>
+
+
+
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+         </fieldset>
+
+
+
+          <table class="table">
+            <thead class="thead-dark" >
+              <tr>
+
+                <th>Numero de página web accedidas y rápidamente abandonadas son     {{can_aban}} en la pagina principal </th>
+
+
+
+              </tr>
+            </thead>
+         <tbody>
+
+
+
+
+
+
+            </tbody>
+          </table>
+ </div>
+
+
+
+
+
+
+
+
+    <!-- <button
+    style="display:scroll;
+    position:fixed;
+    bottom:320px;
+    right:0px;"
+    type="button"
+    class="btn btn-infoo"
+    data-toggle="popover"
+    data-placement="bottom"
+    title="Chat de Ayuda"
+    data-content="
+    <div class='container'  >
+        <div class='row'>
+            <div style='width: 900px; height: 700px; overflow-y: scroll;'>
+                <div id='chatbox' class='border border-success'>
+
+                    <p class='botText' ><span>Bienvenido a nuestro ECOMMERCE</span></p>
+                                        <h6 class='botText'><span>Hola soy EECOMBOT,
+                                         amigo/a te sugiero escribir el nÃºmero
+                                         de opciÃ³n que te puedo ayudar
+                                         es decir por favor solo escribe el
+                                         nÃºmero 1  el 2 o el 3 gracias :)</span></h6>
+                                        <h6 class='botText'><span>1) Ayuda para agregar un producto a tu compra</span></h6>
+                                        <h6 class='botText'><span>2) Ayuda con el pago de los productos</span></h6>
+                                        <h6 class='botText'><span>3) Problemas al realizar el pago</span></h6>
+
+                </div>
+
+                <div id='userInput'>
+                    <input id='textInput' class='form-control' type='text' name='msg'  placeholder='Escriba los nÃºmeros aquÃ­'>
+                    <input onclick='plusSlides()'  class='btn btn-sucess form-control' type='submit' style='color: white; background:blue;' value='Enviar mensaje'>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    ">
+   <h6 style="color: white;">Chat de Ayuda</h6>
+    </button> -->
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+</br>
+</body>
+
+</html>
+
+<script>
+    $(function () {
+      $('[data-toggle="popover"]').popover({
+          container: 'body',
+          html: true,
+          placement: 'top',
+          sanitize: false,
+      });
+    
+      
+    })
+    
+    
+        function getResponse() {
+            let userText = $("#textInput").val();
+            let userHtml = '<p class="userText"><span>' + userText + '</span></p>';
+            $("#textInput").val("");
+            $("#chatbox").append(userHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+            $.get("/get", { msg: userText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+    });
+    }
+        $("#textInput").keypress(function(e) {
+        //if enter key is pressed
+            if(e.which == 13) {
+                getResponse();
+            }
+        });
+        function plusSlides(){
+           
+            getResponse();
+            
+    
+        
+        }
+       
+       
+    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+

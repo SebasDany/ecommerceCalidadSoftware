@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+
+{% block chatbot %}
+<body>
+     
+<button 
+type="button" 
+class="btn btn-infoo" 
+data-toggle="popover" 
+data-placement="bottom" 
+title="Menú de Ayuda" 
+data-content="
+<h1 EECOMBOT</h1>
+<div class='container'>
+    <div class='row'>
+        <div>
+            <div id='chatbox' class='border border-success'>
+        
+                <p class='botText' ><span>Bienvenido a nuestro ECOMMERCE</span></p> 
+                                    <h6 class='botText'><span>Hola soy EECOMBOT,
+                                     amigo/a te sugiero escribir el número 
+                                     de opción que te puedo ayudar
+                                     es decir por favor solo escribe el
+                                     número 1  el 2 o el 3 gracias :)</span></h6> 
+                                    <h6 class='botText'><span>1) Ayuda para agregar un producto a tu compra</span></h6> 
+                                    <h6 class='botText'><span>2) Ayuda con el pago de los productos</span></h6>
+                                    <h6 class='botText'><span>3) Problemas al realizar el pago</span></h6> 
+               
+            </div>
+               
+            <div id='userInput'>
+                <input id='textInput' class='form-control' type='text' name='msg' placeholder='Escriba su duda aquí'>
+                <input onclick='plusSlides()'  class='btn btn-sucess form-control' type='submit' value='Enviar mensaje'>
+        
+            </div>
+        </div>
+    </div>
+    </div>
+
+">
+Chat de Ayuda
+</button>
+
+
+</body>
+{% endblock chatbot %}
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover({
+      container: 'body',
+      html: true,
+      placement: 'bottom',
+      sanitize: false,
+  });
+
+  
+})
+
+
+    function getResponse() {
+        let userText = $("#textInput").val();
+        let userHtml = '<p class="userText"><span>' + userText + '</span></p>';
+        $("#textInput").val("");
+        $("#chatbox").append(userHtml);
+        document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+        $.get("/get", { msg: userText }).done(function(data) {
+        var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+        $("#chatbox").append(botHtml);
+        document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+});
+}
+    $("#textInput").keypress(function(e) {
+    //if enter key is pressed
+        if(e.which == 13) {
+            getResponse();
+        }
+    });
+    function plusSlides(){
+       
+        getResponse();
+        
+
+    
+    }
+   
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</html>
