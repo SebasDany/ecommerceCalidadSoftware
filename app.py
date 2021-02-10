@@ -26,12 +26,12 @@ cont_chat_array = []
 cont_web_array = []
 tiempo1 = []
 nombre = ''
-
+productos_globales=[]
 
 @app.route('/add', methods=['POST'])
 def add_product_to_cart():
     start_time = time()
-    print(start_time)
+    #print(start_time)
 
     cursor = None
     try:
@@ -75,7 +75,7 @@ def add_product_to_cart():
 
             session['all_total_quantity'] = all_total_quantity
             session['all_total_price'] = all_total_price
-
+            print(productos_globales.append(session['all_total_price']))
             return redirect(url_for('.products'))
         else:
             return 'Error while adding item to cart'
@@ -86,7 +86,7 @@ def add_product_to_cart():
         conn.close()
         elapsed_time = time() - start_time
         tiempo.append(elapsed_time)
-        print(tiempo)
+        #print(tiempo)
 
 
 @app.route('/')
@@ -303,13 +303,25 @@ def facturacion():
     dfchat = cursor.fetchall()
     #cursor.execute('SELECT * FROM tiempo_pagina')
     #dft = cursor.fetchall()
-    cursor.close()
+    titular = request.form['titular']
+    tarjeta = request.form['tarjeta']
+    
+    print ("INSERT INTO `pago_pruebas`(`Titular`, `Numero de tarjeta`, `Fecha de caducidad`, `CVC`, `Total`) VALUES 'hol',1,2,45,45454.25)")  
+    print('holaaaaaaaaaaaaaaaaaaa ',productos_globales)
+    ipq='''INSERT INTO `pago_pruebas` (`Titular`, `Numero de tarjeta`, `Fecha de caducidad`, `CVC`, `Total`) 
+    VALUES ('Fabian garrido', '465468486', '2021', '852', '851.63');'''
+    cursor.execute(ipq)
+    conn.commit()
 
+    cursor.close()
     conn.close()
 
     # b='SELECT COUNT(fecha) FROM `eficiencia` WHERE trasac_complet=1'
     # c='SELECT COUNT(fecha) as cantidad,fecha FROM `eficiencia` WHERE trasac_complet=0 GROUP by fecha'
-
+  
+    
+    
+   
     return render_template('facturacion.html', contacts=data, prom=val, contacts3=data3, numero=data4, tiempo=fintiempo,
                            timePage=data5, conFecha=data6, sesion_aban=data7, dfchat=dfchat, can_aban=can_aban)
 
@@ -330,16 +342,12 @@ def cancelar():
         for i in tiempo:
             laSuma = laSuma + i
         print("el tempo total requerido es ", laSuma)
-
         q = "INSERT INTO eficiencia (id, cliente, tiempo_req, trasac_complet,fecha) VALUES (NULL, '" + nombre1 + "'," + str(
             round(laSuma, 2)) + ",0,'" + str(fecha) + "');"
-
         print(q)
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-
         cursor.execute(q)
-
         conn.commit()
         print("2datos ingresados")
         conn.close()'''
@@ -439,6 +447,7 @@ def register():
 @app.route('/login', methods=["GET", "POST"])
 def login():
     fecha = date.today()
+   
 
     if request.method == 'POST':
         email = request.form['email']
@@ -490,6 +499,7 @@ def login():
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
     session.clear()
+    productos_globales.clear()
     cont_chat_array.clear()
     return redirect(url_for('.products'))
 
@@ -559,6 +569,9 @@ def estadistica():
 
     return render_template("estadistica.html",contacts=data, prom=val, contacts3=data3, numero=data4,
                            timePage=data5, conFecha=data6, sesion_aban=data7, dfchat=dfchat, can_aban=can_aban)
+    
+  
+   
 
 if __name__ == '__main__':
     app.run(port=8119, debug=True)
